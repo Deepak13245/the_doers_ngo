@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group([
+    'middleware' => [ 'web', 'role:Admin' ],
+    'namespace'  => 'Admin',
+    'prefix'     => config('backpack.base.route_prefix', 'admin'),
+], function () {
+    CRUD::resource('address', 'AddressCrudController');
+});
