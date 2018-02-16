@@ -44,7 +44,7 @@
                     @endif
                     @if(session()->has('message'))
                         <div class="alert alert-{{ session()->get('type') }}">
-                            {{ session()->get('message') }}
+
                         </div>
                     @endif
                     <div class="row">
@@ -110,7 +110,23 @@
                                     <input type="text" name="city" id="city" tabindex="2" class="form-control"
                                            placeholder="City">
                                 </div>
+                                <div class="form-group">
+                                    <select name="category_id" id="category" tabindex="2" class="form-control">
+                                        <option value="category">Select Category</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
+                                <div class="form-group">
+                                    <select name="interest_id" id="areaofinterest" tabindex="2" class="form-control">
+                                        <option value="-1">Select Area Of Interest</option>
+                                        @foreach($interests as $interest)
+                                            <option value="{{ $interest->id }}">{{ $interest->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
                                 <div class="form-group">
                                     <div class="row">
