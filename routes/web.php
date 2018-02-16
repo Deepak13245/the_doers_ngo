@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->to('auth');
 });
 
 Route::group([
@@ -28,3 +28,7 @@ Route::post("/sign-up", 'GuestController@register');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/user-logout', 'HomeController@logout')->name('home');
+Route::post('/home', 'HomeController@filter')->name('home.filter');
+Route::post('/post', 'HomeController@post')->name('post.save');
+Route::delete('/post/delete/{post}', 'HomeController@deletePost')->name('post.delete');

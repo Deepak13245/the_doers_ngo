@@ -27,6 +27,18 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $address
+ * @property string $city
+ * @property int $category_id
+ * @property int $interest_id
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Address[] $addresses
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Backpack\PermissionManager\app\Models\Permission[] $permissions
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Backpack\PermissionManager\app\Models\Role[] $roles
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User role($roles)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereInterestId($value)
  */
 class User extends Authenticatable
 {

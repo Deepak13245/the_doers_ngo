@@ -14,6 +14,8 @@ class GuestController extends Controller
 
     public function auth()
     {
+        if (\Auth::check())
+            return redirect()->to('home');
         $categories = Category::all();
         $interests = Interest::all();
         return view('auth', compact([ 'interests', 'categories' ]));
