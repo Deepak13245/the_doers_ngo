@@ -22,3 +22,9 @@ Route::group([
 ], function () {
     CRUD::resource('address', 'AddressCrudController');
 });
+
+Route::get("/auth", 'GuestController@auth');
+Route::post("/sign-up", 'GuestController@register');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
