@@ -56,7 +56,7 @@ class HomeController extends Controller
             $posts = $posts->whereIn('category_id', $category_ids);
         else
             $category_ids = [];
-        $posts = $posts->with([ 'interest', 'category', 'user' ]);//->paginate(5)
+        $posts = $posts->with([ 'interest', 'category', 'user' ])->get();//->paginate(5)
         return view('home', compact([ 'user', 'posts', 'categories', 'interests', 'category_ids', 'interest_ids' ]));
     }
 
