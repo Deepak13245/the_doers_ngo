@@ -1,95 +1,65 @@
 <!doctype html>
-<html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>The Doers</title>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
-        </div>
-    </body>
+    <!------ Include the above in your HEAD tag ---------->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="icon" href="{{ asset('favicon.png') }}">
+    <style>
+        p {
+            line-height: 24px;
+            font-size: 12pt;
+        }
+    </style>
+</head>
+<body>
+<div class="text-center" style="position: relative;top:12px;font-size: 48px;">
+    <img src="{{ asset('favicon.png') }}" alt="LOGO" height="48"> The Doers <br>
+    <span style="font-size: small;font-weight: bold;position: relative;top:-48px;left:24px;">Connecting NGO and The Doers</span>
+</div>
+<div class="container">
+    <h1>The Doers App</h1>
+    <p>
+        The Doers App's mission is to help NGOs in India overcome barriers to scale and achieve greater impact at the
+        Bottom of the Pyramid. Strategic, long-term, high-value partnerships are key to all of that. We bring together
+        volunteers, donors, corporates, social innovators, impact investors, mentors, technology experts, government
+        agencies and local partners who are interested in working with NGOs to make a social impact.
+    </p>
+    <hr>
+    <h1>Theory behind the App</h1> <br>
+    <p>
+        <b>Our Theory is built on the following set of premises: </b>
+    </p>
+    <p>
+        In order to achieve a high level of social impact, NGOs must be enabled to reach key targets of social
+        development. They need access to human resources, experts from various background, funds, local partnerships,
+        etc.,
+    </p>
+    <p>
+        Currently, NGOs have to run around, meet lots of people and explain their needs to get the right resources. This
+        takes loads of time & effort and also slows down the work of NGO.
+    </p>
+    <p>
+        This App aims to build the bridge between the needs of NGO and the available resources. <br>
+        This App tries to build a 'thriving ecosystem' that enables collaboration between volunteers, donors,
+        corporates, social innovators, impact investors, mentors, technology experts, government agencies, local
+        partners and NGOs. Such collaborations help touch and transform many more lives at a faster pace.
+    </p>
+    <p>
+        The Doers believes that by creating avenues to bridge expectations on both sides, we can help overcome obstacles
+        to achieving scale and to do so sustainability.
+    </p>
+    <br>
+    <div class="text-center">
+        <a href="{{ route('auth') }}" class="btn btn-primary btn-lg">Enter</a>
+    </div>
+</div>
+</body>
 </html>

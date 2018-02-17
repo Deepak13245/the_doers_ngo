@@ -13,9 +13,13 @@
     <!------ Include the above in your HEAD tag ---------->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="{{ asset('login_reg_css.css') }}">
+    <link rel="icon" href="{{ asset('favicon.png') }}">
 </head>
 <body>
-
+<div class="text-center" style="position: relative;top:-60px;font-size: 48px;">
+    <img src="{{ asset('favicon.png') }}" alt="LOGO" height="48"> The Doers <br>
+    <span style="font-size: small;font-weight: bold;position: relative;top:-48px;left:24px;">Connecting NGO and The Doers</span>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -76,8 +80,8 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="text-center">
-                                                <a href="https://phpoll.com/recover" tabindex="5"
-                                                   class="forgot-password">Forgot Password?</a>
+                                                {{--                                                <a href="https://phpoll.com/recover" tabindex="5"
+                                                                                                   class="forgot-password">Forgot Password?</a>--}}
                                             </div>
                                         </div>
                                     </div>

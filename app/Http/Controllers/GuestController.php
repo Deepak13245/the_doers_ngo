@@ -25,7 +25,8 @@ class GuestController extends Controller
 
     public function register(RegisterRequest $request)
     {
-
+        if (\Auth::check())
+            return redirect()->to('home');
         try {
             $data = $request->validated();
             $data['password'] = Hash::make($data['password']);
@@ -38,6 +39,14 @@ class GuestController extends Controller
         } catch (Exception $e) {
             return redirect()->back()->withErrors([ 'Error' => $e->getMessage() ]);
         }
+    }
+
+    public function index()
+    {
+
+        if (\Auth::check())
+            return redirect()->to('home');
+        return view('welcome');
     }
 
 

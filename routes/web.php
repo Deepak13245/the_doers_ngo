@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect()->to('auth');
-});
+Route::get('/', 'GuestController@index');
 
 Route::group([
     'middleware' => [ 'web', 'role:Admin' ],
@@ -26,7 +24,7 @@ Route::group([
     CRUD::resource('category', 'CategoryCrudController');
 });
 
-Route::get("/auth", 'GuestController@auth');
+Route::get("/auth", 'GuestController@auth')->name('auth');
 Route::post("/sign-up", 'GuestController@register');
 Auth::routes();
 
