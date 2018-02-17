@@ -28,6 +28,7 @@ class RegisterRequest extends FormRequest
             'email'       => 'email | required | unique:users,email',
             'password'    => 'string | required',
             'address'     => 'string | required',
+            'phone'       => 'string | required',
             'city'        => 'string |required',
             'category_id' => 'exists:categories,id',
             'interest_id' => 'exists:interests,id'

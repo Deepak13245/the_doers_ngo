@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Models\Category;
 use App\Models\Interest;
-use App\User;
-use Auth;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class PostController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -31,11 +31,11 @@ class HomeController extends Controller
         $user = $request->user();
         $categories = Category::all();
         $interests = Interest::all();
-        $users = User::orderByDesc('id')->with([ 'interest', 'category' ])->paginate(5);
+        $posts = Post::orderByDesc('id')->with([ 'interest', 'category', 'user' ])->paginate(5);
         $interest_ids = [];
         $category_ids = [];
         $paginate = true;
-        return view('home', compact([ 'user', 'users', 'categories', 'interests', 'category_ids', 'interest_ids', 'paginate' ]));
+        return view('post', compact([ 'user', 'posts', 'categories', 'interests', 'category_ids', 'interest_ids', 'paginate' ]));
     }
 
     public function filter(Request $request)
@@ -47,24 +47,34 @@ class HomeController extends Controller
         $user = $request->user();
         $categories = Category::all();
         $interests = Interest::all();
-        $users = User::orderByDesc('id');
+        $posts = Post::orderByDesc('id');
         if (!empty($interest_ids))
-            $users = $users->whereIn('interest_id', $interest_ids);
+            $posts = $posts->whereIn('interest_id', $interest_ids);
         else
             $interest_ids = [];
         if (!empty($category_ids))
-            $users = $users->whereIn('category_id', $category_ids);
+            $posts = $posts->whereIn('category_id', $category_ids);
         else
             $category_ids = [];
+        $posts = $posts->with([ 'interest', 'category', 'user' ])->get();
         $paginate = false;
-        $users = $users->with([ 'interest', 'category' ])->get();
-        return view('home', compact([ 'user', 'users', 'categories', 'interests', 'category_ids', 'interest_ids', 'paginate' ]));
+        return view('post', compact([ 'user', 'posts', 'categories', 'interests', 'category_ids', 'interest_ids', 'paginate' ]));
     }
 
-    function logout(Request $request)
+    function post(PostRequest $request)
     {
-        Auth::logout();
-        return redirect()->to('/auth')->with([ 'type' => 'info', 'message' => 'Logged out' ]);
+        $data = $request->all();
+        $user = $request->user();
+        $data['user_id'] = $user->id;
+        $post = Post::create($data);
+        return redirect()->back()->with([ 'type' => 'success', 'message' => 'Posted' ]);
+    }
+
+    function deletePost(Request $request, Post $post)
+    {
+        if ($post->user_id == $request->user()->id)
+            $post->delete();
+        return redirect()->back()->with([ 'type' => 'info', 'message' => 'Post Deleted' ]);
     }
 
 

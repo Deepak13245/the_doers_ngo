@@ -27,8 +27,23 @@ class UserSeeder extends Seeder
             $user->address = $faker->address;
             $user->category_id = $categories->random()->id;
             $user->interest_id = $interests->random()->id;
+            $user->phone = $faker->phoneNumber;
+            $user->lat = $faker->latitude;
+            $user->lng = $faker->longitude;
             $user->save();
-
         }
+        $user = new User();
+        $user->name = 'Deepak';
+        $user->email = 'deepak.kumar13245@gmail.com';
+        $user->password = bcrypt('deepak');
+        $user->city = 'Bangalore';
+        $user->address = 'Domlur';
+        $user->category_id = $categories->random()->id;
+        $user->interest_id = $interests->random()->id;
+        $user->phone = '9740769613';
+        $user->lat = $faker->latitude;
+        $user->lng = $faker->longitude;
+        $user->save();
+        $user->assignRole('Admin');
     }
 }

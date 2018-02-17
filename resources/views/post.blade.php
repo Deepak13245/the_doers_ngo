@@ -21,7 +21,7 @@
     <div class="row">
         <!-- Filters -->
         <div class="col-md-3">
-            <form action="{{ route('home.filter') }}" method="post">
+            <form action="{{ route('post.filter') }}" method="post">
                 {{ csrf_field() }}
                 <div class="panel-group" id="accordion">
                     <div class="panel panel-default">
@@ -90,52 +90,47 @@
                 </div>
             @endif
 
-            @foreach($users as $u)
+            @foreach($posts as $post)
             <!-- Card -->
-                @if($u->id != $user->id)
-                    <div class="card padding-top padding-bottom col col-lg-12 margin-bottom">
-                        <h3>{{ $u->name }}</h3>
-                        <div class="row">
-                            <div class="col col-md-6">
-                                <p><b>Email</b></p>
-                            </div>
-                            <div class="col col-md-6">
-                                <p>{{ $u->email }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-md-6">
-                                <p><b>Phone Number</b></p>
-                            </div>
-                            <div class="col col-md-6">
-                                <p>{{ $u->phone or '' }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-md-6">
-                                <p><b>Category</b> : {{ $u->category->name }}</p>
-                            </div>
-                            <div class="col col-md-6">
-                                <p><b>Interest</b> : {{ $u->interest->name }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-md-6">
-                                <p>Address : </p>
-                            </div>
-                            <div class="col col-md-6">
-                                <p>{{ $u->address }}</p>
-                            </div>
-                        </div>
+                <div class="card padding-top padding-bottom col col-lg-12 margin-bottom">
+                    <h3>{{ $post->title }}</h3>
+                    <img class="margin-bottom" style="height: 20px;"
+                         src="http://goldwallpapers.com/uploads/posts/blank-blue-wallpaper/blank_blue_wallpaper_030.jpg"
+                         alt=""/>
+                    <div class="col col-md-6">
+                        <p><b>Name :</b> {{ $post->user->name }}</p>
                     </div>
-                @endif
-            <!-- Card End -->
+                    <div class="col col-md-6">
+                        <p><b>Email :</b> {{ $post->user->email }}</p>
+                    </div>
+                    <div class="col col-md-6">
+                        <p><b>Category :</b> {{ $post->category->name }}</p>
+                    </div>
+                    <div class="col col-md-6">
+                        <p><b>Interest :</b> {{ $post->interest->name }}</p>
+                    </div>
+                    <div class="col col-md-12">
+                        <p><b>Description:</b>
+                            {{ $post->description }}
+                        </p>
+                    </div>
+                    @if(Auth::check()&&$user->id==$post->user->id)
+                        <div class="col col-md-3 col-md-offset-9">
+                            <form action="post/delete/{{$post->id}}" method="POST">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="submit" value="Delete" class="btn btn-danger">
+                            </form>
+                        </div>
+                    @endif
+                </div>
+                <!-- Card End -->
             @endforeach
             @if($paginate)
                 <div class='row'>
                     <div class="col-md-3">
-                        @if($users->previousPageUrl())
-                            <a href="{{ $users->previousPageUrl() }}" class="btn btn-primary">
+                        @if($posts->previousPageUrl())
+                            <a href="{{ $posts->previousPageUrl() }}" class="btn btn-primary">
                                 <i class="fa fa-btn fa-arrow-left"></i> Prev
                             </a>
                         @endif
@@ -143,17 +138,17 @@
                     <div class="col-md-6">
                         <div class="center text-center" style="margin-top:-20px;">
                             <ul class="pagination">
-                                @for($i=1;$i<=$users->lastPage();$i++)
-                                    <li class="{{$users->currentPage()==$i?'active':''}}">
-                                        <a href='{{$users->url($i)}}'>{{$i}}</a>
+                                @for($i=1;$i<=$posts->lastPage();$i++)
+                                    <li class="{{$posts->currentPage()==$i?'active':''}}">
+                                        <a href='{{$posts->url($i)}}'>{{$i}}</a>
                                     </li>
                                 @endfor
                             </ul>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        @if($users->nextPageUrl())
-                            <a href="{{ $users->nextPageUrl() }}" class="btn btn-primary pull-right">
+                        @if($posts->nextPageUrl())
+                            <a href="{{ $posts->nextPageUrl() }}" class="btn btn-primary pull-right">
                                 Next
                                 <i class="fa fa-btn fa-arrow-right"></i>
                             </a>

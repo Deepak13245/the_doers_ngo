@@ -8,20 +8,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 </head>
 
 <body>
-
 @include('nav',compact(['user']))
-
 <div class="container margin-top">
     <div class="row">
         <!-- Filters -->
         <div class="col-md-3">
-            <form action="{{ route('home.filter') }}" method="post">
+            <form action="{{ route('map.filter') }}" method="post">
                 {{ csrf_field() }}
                 <div class="panel-group" id="accordion">
                     <div class="panel panel-default">
@@ -89,77 +85,12 @@
                     {{ session()->get('message') }}
                 </div>
             @endif
-
-            @foreach($users as $u)
-            <!-- Card -->
-                @if($u->id != $user->id)
-                    <div class="card padding-top padding-bottom col col-lg-12 margin-bottom">
-                        <h3>{{ $u->name }}</h3>
-                        <div class="row">
-                            <div class="col col-md-6">
-                                <p><b>Email</b></p>
-                            </div>
-                            <div class="col col-md-6">
-                                <p>{{ $u->email }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-md-6">
-                                <p><b>Phone Number</b></p>
-                            </div>
-                            <div class="col col-md-6">
-                                <p>{{ $u->phone or '' }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-md-6">
-                                <p><b>Category</b> : {{ $u->category->name }}</p>
-                            </div>
-                            <div class="col col-md-6">
-                                <p><b>Interest</b> : {{ $u->interest->name }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-md-6">
-                                <p>Address : </p>
-                            </div>
-                            <div class="col col-md-6">
-                                <p>{{ $u->address }}</p>
-                            </div>
-                        </div>
-                    </div>
-                @endif
-            <!-- Card End -->
-            @endforeach
-            @if($paginate)
-                <div class='row'>
-                    <div class="col-md-3">
-                        @if($users->previousPageUrl())
-                            <a href="{{ $users->previousPageUrl() }}" class="btn btn-primary">
-                                <i class="fa fa-btn fa-arrow-left"></i> Prev
-                            </a>
-                        @endif
-                    </div>
-                    <div class="col-md-6">
-                        <div class="center text-center" style="margin-top:-20px;">
-                            <ul class="pagination">
-                                @for($i=1;$i<=$users->lastPage();$i++)
-                                    <li class="{{$users->currentPage()==$i?'active':''}}">
-                                        <a href='{{$users->url($i)}}'>{{$i}}</a>
-                                    </li>
-                                @endfor
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        @if($users->nextPageUrl())
-                            <a href="{{ $users->nextPageUrl() }}" class="btn btn-primary pull-right">
-                                Next
-                                <i class="fa fa-btn fa-arrow-right"></i>
-                            </a>
-                        @endif
-                    </div>
+            @if(!count($list))
+                <div class="alert alert-warning">
+                    No results found.
                 </div>
+            @else
+                <div id="googleMap" style="width:100%;height:600px;"></div>
             @endif
         </div>
     </div>
@@ -207,7 +138,46 @@
         </form>
     </div>
 </div>
+<script>
 
+    function myMap() {
+        var mapProp = {
+            center: new google.maps.LatLng({{ $user->lat }},{{ $user->lng }}),
+            zoom: 12,
+        };
+        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+        var marker = new google.maps.Marker({
+            position: mapProp.center,
+            title: '{{ $user->name }}',
+        });
+        marker.setMap(map);
+        var icon = {
+            url: "{{ asset('img/map_blue.png') }}", // url
+            scaledSize: new google.maps.Size(40, 40), // scaled size
+            labelOrigin: new google.maps.Point(25, 50),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(11, 40),
+        };
+        @foreach($list as $u)
+            marker = new google.maps.Marker({
+            position: new google.maps.LatLng({{ $u->lat }},{{ $u->lng }}),
+            title: '{{ $u->name }}',
+            icon: icon,
+            label: {
+                color: 'green',
+                fontWeight: 'bold',
+                text: '{{ $u->name  }} - {{ $u->category->name }}',
+            }
+        });
+        marker.setMap(map);
+        marker.addListener('click', function () {
+            alert("{{ $u->name }}\nEmail : {{ $u->email }}\nPhone : {{ $u->phone }}\nDistance: {{  round($u->distance($user),2) }} KM\nCategory : {{ $u->category->name }}\nInterest : {{ $u->interest->name }}");
+        });
+        @endforeach
+    }
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ config('app.map_key_js') }}&callback=myMap"></script>
 </body>
 
 </html>

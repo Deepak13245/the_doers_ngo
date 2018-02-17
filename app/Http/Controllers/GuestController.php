@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RegisterRequest;
 use App\Models\Category;
 use App\Models\Interest;
+use App\Triats\Maps;
 use App\User;
 use Exception;
 use Hash;
 
 class GuestController extends Controller
 {
+    use Maps;
 
     public function auth()
     {
@@ -23,13 +25,20 @@ class GuestController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $data = $request->validated();
-        $data['password'] = Hash::make($data['password']);
+
         try {
+            $data = $request->validated();
+            $data['password'] = Hash::make($data['password']);
+            $address = $data['address'] . "," . $data['city'];
+            $location = $this->getMapLL($address);
+            $data['lat'] = $location->lat;
+            $data['lng'] = $location->lng;
             $user = User::create($data);
             return redirect()->back()->with([ 'message' => 'Registration successful', 'type' => 'success' ]);
         } catch (Exception $e) {
             return redirect()->back()->withErrors([ 'Error' => $e->getMessage() ]);
         }
     }
+
+
 }

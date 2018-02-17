@@ -35,6 +35,13 @@
                                         class="fa fa-key"></i> <span>Permissions</span></a></li>
                     </ul>
                 </li>
+                <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/interest') }}"><i
+                                class="fa fa-user"></i> <span>Interests</span></a></li>
+                <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/category') }}"><i
+                                class="fa fa-user"></i> <span>Categories</span></a></li>
+                <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/post') }}"><i
+                                class="fa fa-user"></i> <span>Posts</span></a></li>
+
             </ul>
         </section>
         <!-- /.sidebar -->

@@ -19,7 +19,7 @@ class CategorySeeder extends Seeder
         Category::create([ 'name' => 'Social innovators' ]);
         Category::create([ 'name' => 'Investors' ]);
         Category::create([ 'name' => 'Mentors' ]);
-        Category::create([ 'name' => 'technologyexperts' ]);
-        Category::create([ 'name' => 'government agencies' ]);
+        Category::create([ 'name' => 'Technology Experts' ]);
+        Category::create([ 'name' => 'Government Agencies' ]);
     }
 }

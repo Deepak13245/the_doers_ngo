@@ -3,6 +3,9 @@
 namespace App;
 
 use App\Models\Address;
+use App\Models\Category;
+use App\Models\Interest;
+use App\Triats\Maps;
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -45,13 +48,14 @@ class User extends Authenticatable
     use Notifiable;
     use HasRoles;
     use CrudTrait;
+    use Maps;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'address', 'city', 'category_id', 'interest_id'
+        'name', 'email', 'password', 'address', 'city', 'category_id', 'interest_id', 'phone', 'lat', 'lng'
     ];
 
     /**
@@ -66,5 +70,20 @@ class User extends Authenticatable
     public function addresses()
     {
         return $this->hasMany(Address::class);
+    }
+
+    function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    function interest()
+    {
+        return $this->belongsTo(Interest::class);
+    }
+
+    function distance($user)
+    {
+        return $this->getMapDistance($this->lat, $this->lng, $user->lat, $user->lng);
     }
 }

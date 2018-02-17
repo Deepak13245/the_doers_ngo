@@ -95,6 +95,10 @@
                                            placeholder="Email Address" value="">
                                 </div>
                                 <div class="form-group">
+                                    <input type="tel" name="phone" id="phone" tabindex="1" class="form-control"
+                                           placeholder="Phone Number" value="">
+                                </div>
+                                <div class="form-group">
                                     <input type="password" name="password" id="password" tabindex="2"
                                            class="form-control" placeholder="Password">
                                 </div>

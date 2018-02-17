@@ -12,10 +12,10 @@ class InterestSeeder extends Seeder
      */
     public function run()
     {
-        Interest::create([ 'name' => 'Healthcare' ]);
-        Interest::create([ 'name' => 'childeducation' ]);
-        Interest::create([ 'name' => 'womenempowerment' ]);
-        Interest::create([ 'name' => 'humanrights' ]);
-        Interest::create([ 'name' => 'ruraldevelopment' ]);
+        Interest::create([ 'name' => 'Health Care' ]);
+        Interest::create([ 'name' => 'Child Education' ]);
+        Interest::create([ 'name' => 'Women Empowerment' ]);
+        Interest::create([ 'name' => 'Human Rights' ]);
+        Interest::create([ 'name' => 'Rural Development' ]);
     }
 }

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\PostRequest as StoreRequest;
+use App\Http\Requests\PostRequest as UpdateRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
-use App\Http\Requests\PostRequest as StoreRequest;
-use App\Http\Requests\PostRequest as UpdateRequest;
 
 class PostCrudController extends CrudController
 {
@@ -29,6 +29,35 @@ class PostCrudController extends CrudController
         */
 
         $this->crud->setFromDb();
+        $this->crud->addField([
+            'name'      => 'user_id',
+            'label'     => 'User',
+            'type'      => 'select',
+            'entity'    => 'user',
+            'attribute' => 'name',
+            'model'     => 'App\User'
+
+        ], 'both');
+
+        $this->crud->addField([
+            'name'      => 'category_id',
+            'label'     => 'Category',
+            'type'      => 'select',
+            'entity'    => 'category',
+            'attribute' => 'name',
+            'model'     => 'App\Models\Category'
+
+        ], 'both');
+
+        $this->crud->addField([
+            'name'      => 'interest_id',
+            'label'     => 'Interest',
+            'type'      => 'select',
+            'entity'    => 'interest',
+            'attribute' => 'name',
+            'model'     => 'App\Models\Interest'
+
+        ], 'both');
 
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');
@@ -36,6 +65,33 @@ class PostCrudController extends CrudController
         // $this->crud->removeField('name', 'update/create/both');
         // $this->crud->removeFields($array_of_names, 'update/create/both');
 
+        $this->crud->addColumn([
+            'name'      => 'user_id',
+            'label'     => 'User',
+            'type'      => 'select',
+            'entity'    => 'user',
+            'attribute' => 'name',
+            'model'     => 'App\User'
+
+        ]);
+        $this->crud->addColumn([
+            'name'      => 'category_id',
+            'label'     => 'Category',
+            'type'      => 'select',
+            'entity'    => 'category',
+            'attribute' => 'name',
+            'model'     => 'App\Models\Category'
+
+        ]);
+        $this->crud->addColumn([
+            'name'      => 'interest_id',
+            'label'     => 'Interest',
+            'type'      => 'select',
+            'entity'    => 'interest',
+            'attribute' => 'name',
+            'model'     => 'App\Models\Interest'
+
+        ]);
         // ------ CRUD COLUMNS
         // $this->crud->addColumn(); // add a single column, at the end of the stack
         // $this->crud->addColumns(); // add multiple columns, at the end of the stack
