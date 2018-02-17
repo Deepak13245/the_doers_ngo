@@ -42,7 +42,17 @@ Route::post('/posts', 'PostController@filter')->name('post.filter');
 Route::post('/post', 'PostController@post')->name('post.save');
 Route::delete('/post/delete/{post}', 'PostController@deletePost')->name('post.delete');
 
+// Events
+
+Route::get('/events', 'EventController@index')->name('event');
+Route::post('/events', 'EventController@filter')->name('event.filter');
+Route::post('/event', 'EventController@event')->name('event.save');
+Route::delete('/event/delete/{event}', 'EventController@deletePost')->name('event.delete');
+
 // Map
 
 Route::get('/map', 'MapController@index')->name('map');
 Route::post('/map', 'MapController@filter')->name('map.filter');
+
+Route::get('/event/map', 'EventMapController@index')->name('event.map');
+Route::post('/event/map', 'EventMapController@filter')->name('event.map.filter');

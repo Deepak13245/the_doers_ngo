@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>The Doers NGO</title>
+    <title>The Doers</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -201,7 +201,7 @@
         </form>
     </div>
 </div>
-
+@include('modal.post',compact(['categories','interests']))
 </body>
 
 </html>

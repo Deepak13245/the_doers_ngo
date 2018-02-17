@@ -22,7 +22,7 @@
 <body>
 <div class="text-center" style="position: relative;top:12px;font-size: 48px;">
     <img src="{{ asset('favicon.png') }}" alt="LOGO" height="48"> The Doers <br>
-    <span style="font-size: small;font-weight: bold;position: relative;top:-48px;left:24px;">Connecting NGO and The Doers</span>
+    <span style="font-size: small;font-weight: bold;position: relative;top:-48px;left:24px;">Connecting NGOs and The Doers</span>
 </div>
 <div class="container">
     <h1>The Doers App</h1>

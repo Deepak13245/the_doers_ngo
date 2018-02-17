@@ -17,22 +17,10 @@
 @include('nav',compact(['user']))
 
 <div class="container margin-top">
-    <div class="text-center">
-        <h2>NGOs and The Doers Listing</h2>
-        <div class="row">
-            <div class="col col-md-6 col-md-offset-3">
-                <div class="alert alert-info" style="font-size: 16px;">
-                    <span class="glyphicon glyphicon-info-sign"></span> Use the filters to view get connected with the
-                    right
-                    people
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="row">
         <!-- Filters -->
         <div class="col-md-3">
-            <form action="{{ route('home.filter') }}" method="post">
+            <form action="{{ route('event.filter') }}" method="post">
                 {{ csrf_field() }}
                 <div class="panel-group" id="accordion">
                     <div class="panel panel-default">
@@ -101,52 +89,56 @@
                 </div>
             @endif
 
-            @foreach($users as $u)
+            @foreach($events as $event)
             <!-- Card -->
-                @if($u->id != $user->id)
-                    <div class="card padding-top padding-bottom col col-lg-12 margin-bottom">
-                        <h3>{{ $u->name }}</h3>
-                        <div class="row">
-                            <div class="col col-md-6">
-                                <p><b>Email</b></p>
-                            </div>
-                            <div class="col col-md-6">
-                                <p>{{ $u->email }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-md-6">
-                                <p><b>Phone Number</b></p>
-                            </div>
-                            <div class="col col-md-6">
-                                <p>{{ $u->phone or '' }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-md-6">
-                                <p><b>Category</b> : {{ $u->category->name }}</p>
-                            </div>
-                            <div class="col col-md-6">
-                                <p><b>Interest</b> : {{ $u->interest->name }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-md-6">
-                                <p>Address : </p>
-                            </div>
-                            <div class="col col-md-6">
-                                <p>{{ $u->address }}</p>
-                            </div>
-                        </div>
+                <div class="card padding-top padding-bottom col col-lg-12 margin-bottom">
+                    <h3>{{ $event->title }}</h3>
+                    <img class="margin-bottom" style="height: 20px;"
+                         src="http://goldwallpapers.com/uploads/posts/blank-blue-wallpaper/blank_blue_wallpaper_030.jpg"
+                         alt=""/>
+                    <div class="col col-md-6">
+                        <p><b>Organizer :</b> {{ $event->user->name }}</p>
                     </div>
-                @endif
-            <!-- Card End -->
+                    <div class="col col-md-6">
+                        <p><b>Email :</b> {{ $event->user->email }}</p>
+                    </div>
+                    <div class="col col-md-6">
+                        <p><b>Category :</b> {{ $event->category->name }}</p>
+                    </div>
+                    <div class="col col-md-6">
+                        <p><b>Interest :</b> {{ $event->interest->name }}</p>
+                    </div>
+                    <div class="col col-md-6">
+                        <p><b>Start Date :</b> {{ (new Carbon\Carbon($event->start))->format('d-m-Y h:i:s a') }}</p>
+                    </div>
+                    <div class="col col-md-6">
+                        <p><b>End Date :</b> {{ (new Carbon\Carbon($event->end))->format('d-m-Y h:i:s a') }}</p>
+                    </div>
+                    <div class="col col-md-12">
+                        <p><b>Address :</b> {{ $event->address }}</p>
+                    </div>
+                    <div class="col col-md-12">
+                        <p><b>Description:</b>
+                            {{ $event->description }}
+                        </p>
+                    </div>
+                    @if(Auth::check()&&$user->id==$event->user->id)
+                        <div class="col col-md-3 col-md-offset-9">
+                            <form action="event/delete/{{$event->id}}" method="POST">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="submit" value="Delete" class="btn btn-danger">
+                            </form>
+                        </div>
+                    @endif
+                </div>
+                <!-- Card End -->
             @endforeach
             @if($paginate)
                 <div class='row'>
                     <div class="col-md-3">
-                        @if($users->previousPageUrl())
-                            <a href="{{ $users->previousPageUrl() }}" class="btn btn-primary">
+                        @if($events->previousPageUrl())
+                            <a href="{{ $events->previousPageUrl() }}" class="btn btn-primary">
                                 <i class="fa fa-btn fa-arrow-left"></i> Prev
                             </a>
                         @endif
@@ -154,17 +146,17 @@
                     <div class="col-md-6">
                         <div class="center text-center" style="margin-top:-20px;">
                             <ul class="pagination">
-                                @for($i=1;$i<=$users->lastPage();$i++)
-                                    <li class="{{$users->currentPage()==$i?'active':''}}">
-                                        <a href='{{$users->url($i)}}'>{{$i}}</a>
+                                @for($i=1;$i<=$events->lastPage();$i++)
+                                    <li class="{{$events->currentPage()==$i?'active':''}}">
+                                        <a href='{{$events->url($i)}}'>{{$i}}</a>
                                     </li>
                                 @endfor
                             </ul>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        @if($users->nextPageUrl())
-                            <a href="{{ $users->nextPageUrl() }}" class="btn btn-primary pull-right">
+                        @if($events->nextPageUrl())
+                            <a href="{{ $events->nextPageUrl() }}" class="btn btn-primary pull-right">
                                 Next
                                 <i class="fa fa-btn fa-arrow-right"></i>
                             </a>
@@ -175,9 +167,50 @@
         </div>
     </div>
 </div>
-
+<div id="newPost" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <form action="{{ route('post.save') }}" method="POST">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">New Post</h4>
+                </div>
+                <div class="modal-body">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <input type="text" name="title" class="form-control" placeholder="Title" tabindex="1">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="description" class="form-control" placeholder="Description"
+                                  tabindex="1"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <select name="category_id" id="category" tabindex="2" class="form-control">
+                            <option value="category">Select Category</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select name="interest_id" id="areaofinterest" tabindex="2" class="form-control">
+                            <option value="-1">Select Area Of Interest</option>
+                            @foreach($interests as $interest)
+                                <option value="{{ $interest->id }}">{{ $interest->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="POST" class="btn btn-primary">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 @include('modal.post',compact(['categories','interests']))
-
 </body>
 
 </html>

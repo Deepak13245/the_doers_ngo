@@ -18,7 +18,7 @@
 <body>
 <div class="text-center" style="position: relative;top:-60px;font-size: 48px;">
     <img src="{{ asset('favicon.png') }}" alt="LOGO" height="48"> The Doers <br>
-    <span style="font-size: small;font-weight: bold;position: relative;top:-48px;left:24px;">Connecting NGO and The Doers</span>
+    <span style="font-size: small;font-weight: bold;position: relative;top:-48px;left:24px;">NGOs and The Doers Listing</span>
 </div>
 <div class="container">
     <div class="row">

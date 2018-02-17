@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Event;
 use App\Models\Interest;
 use App\Triats\Maps;
-use App\User;
 use Illuminate\Http\Request;
 
-class MapController extends Controller
+class EventMapController extends Controller
 {
     use Maps;
 
@@ -31,12 +31,12 @@ class MapController extends Controller
         $interests = Interest::all();
         $ulat = $user->lat;
         $ulng = $user->lng;
-        $users = User::all();
-        $list = $users;
+        $events = Event::all();
+        $list = $events;
         $interest_ids = [];
         $category_ids = [];
 
-        return view('map', compact([ 'user', 'list', 'categories', 'interests', 'category_ids', 'interest_ids' ]));
+        return view('map.event', compact([ 'user', 'list', 'categories', 'interests', 'category_ids', 'interest_ids' ]));
     }
 
     function filter(Request $request)
@@ -49,18 +49,18 @@ class MapController extends Controller
         $category_ids = $request->get('category');
         $ulat = $user->lat;
         $ulng = $user->lng;
-        $users = User::orderBy('id');
+        $events = Event::orderBy('id');
         if (!empty($interest_ids))
-            $users = $users->whereIn('interest_id', $interest_ids);
+            $events = $events->whereIn('interest_id', $interest_ids);
         else
             $interest_ids = [];
         if (!empty($category_ids))
-            $users = $users->whereIn('category_id', $category_ids);
+            $events = $events->whereIn('category_id', $category_ids);
         else
             $category_ids = [];
 
-        $list = $users->get();
+        $list = $events->get();
 
-        return view('map', compact([ 'user', 'list', 'categories', 'interests', 'category_ids', 'interest_ids' ]));
+        return view('map.event', compact([ 'user', 'list', 'categories', 'interests', 'category_ids', 'interest_ids' ]));
     }
 }

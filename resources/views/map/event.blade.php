@@ -18,7 +18,7 @@
     <div class="row">
         <!-- Filters -->
         <div class="col-md-3">
-            <form action="{{ route('map.filter') }}" method="post">
+            <form action="{{ route('event.map.filter') }}" method="post">
                 {{ csrf_field() }}
                 <div class="panel-group" id="accordion">
                     <div class="panel panel-default">
@@ -118,23 +118,21 @@
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(11, 40)
         };
-        @foreach($list as $u)
-                @if($u->id!=$user->id)
+        @foreach($list as $event)
             marker = new google.maps.Marker({
-            position: new google.maps.LatLng({{ $u->lat }},{{ $u->lng }}),
-            title: '{{ $u->name }}',
+            position: new google.maps.LatLng({{ $event->lat }},{{ $event->lng }}),
+            title: '{{ $event->title }}',
             icon: icon,
             label: {
                 color: 'green',
                 fontWeight: 'bold',
-                text: '{{ $u->name  }} - {{ $u->category->name }}'
+                text: '{{ $event->user->name  }} - {{ $event->category->name }}'
             }
         });
         marker.setMap(map);
         marker.addListener('click', function () {
-            alert("{{ $u->name }}\nEmail : {{ $u->email }}\nPhone : {{ $u->phone }}\nDistance: {{  round($u->distance($user),2) }} KM\nCategory : {{ $u->category->name }}\nInterest : {{ $u->interest->name }}");
+            alert("{{ $event->title }}\nEmail : {{ $event->user->email }}\nPhone : {{ $event->user->phone }}\nDistance: {{  round($event->distance($user),2) }} KM\nCategory : {{ $event->category->name }}\nInterest : {{ $event->interest->name }}\nStart Date: {{ $event->start }}\nEnd Date : {{ $event->end }}");
         });
-        @endif
         @endforeach
     }
 
