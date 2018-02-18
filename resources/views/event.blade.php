@@ -27,7 +27,7 @@
             <div class="col col-md-6 col-md-offset-3">
                 <div class="alert alert-info" style="font-size: 16px;">
                     <span class="glyphicon glyphicon-info-sign"></span> 
-                    Use the filters to view get connected with the
+                    Use the filters to view and get connected with the
                     right
                     people
                 </div>
