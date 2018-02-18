@@ -36,7 +36,7 @@ class EventController extends Controller
         $user = $request->user();
         $categories = Category::all();
         $interests = Interest::all();
-        $events = Event::orderBy('start')->with([ 'interest', 'category', 'user' ])->paginate(5);
+        $events = Event::orderByDesc('id')->with([ 'interest', 'category', 'user' ])->paginate(5);
         $interest_ids = [];
         $category_ids = [];
         $paginate = true;
@@ -52,7 +52,7 @@ class EventController extends Controller
         $user = $request->user();
         $categories = Category::all();
         $interests = Interest::all();
-        $events = Event::orderBy('start');
+        $events = Event::orderByDesc('id');
         if (!empty($interest_ids))
             $events = $events->whereIn('interest_id', $interest_ids);
         else

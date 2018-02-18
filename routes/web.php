@@ -26,6 +26,7 @@ Route::group([
 
 Route::get("/auth", 'GuestController@auth')->name('auth');
 Route::post("/sign-up", 'GuestController@register');
+Route::get('login', 'GuestController@auth');
 Auth::routes();
 
 // Home

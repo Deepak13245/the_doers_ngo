@@ -30,7 +30,7 @@
         The Doers App's mission is to help NGOs in India overcome barriers to scale and achieve greater impact at the
         Bottom of the Pyramid. Strategic, long-term, high-value partnerships are key to all of that. We bring together
         volunteers, donors, corporates, social innovators, impact investors, mentors, technology experts, government
-        agencies and local partners who are interested in working with NGOs to make a social impact.
+        agencies and local partners (The Doers) who are interested in working with NGOs to make a social impact.
     </p>
     <hr>
     <h1>Theory behind the App</h1> <br>
@@ -50,7 +50,7 @@
         This App aims to build the bridge between the needs of NGO and the available resources. <br>
         This App tries to build a 'thriving ecosystem' that enables collaboration between volunteers, donors,
         corporates, social innovators, impact investors, mentors, technology experts, government agencies, local
-        partners and NGOs. Such collaborations help touch and transform many more lives at a faster pace.
+        partners (The Doers) and NGOs. Such collaborations help touch and transform many more lives at a faster pace.
     </p>
     <p>
         The Doers believes that by creating avenues to bridge expectations on both sides, we can help overcome obstacles

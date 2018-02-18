@@ -15,11 +15,11 @@
                 <li>
                     <a href="{{ route('event') }}">Events</a>
                 </li>
-                <li>
+<!--                 <li>
                     <div class="search-N-V-group">
                         <input type="text" name="search" placeholder="Search..">
                     </div>
-                </li>
+                </li> -->
             </ul>
             <div class="pull-right profile-header-container">
                 <div class="profile-header-img">

@@ -15,6 +15,19 @@
 <body>
 @include('nav',compact(['user']))
 <div class="container margin-top">
+    <div class="text-center">
+        <h2>NGOs and The Doers Map Markings</h2>
+        <div class="row">
+            <div class="col col-md-6 col-md-offset-3">
+                <div class="alert alert-info" style="font-size: 16px;">
+                    <span class="glyphicon glyphicon-info-sign"></span> 
+                    Use the filters to view get connected with the
+                    right
+                    people
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <!-- Filters -->
         <div class="col-md-3">

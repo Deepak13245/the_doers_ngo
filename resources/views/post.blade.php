@@ -17,6 +17,22 @@
 @include('nav',compact(['user']))
 
 <div class="container margin-top">
+    <div class="text-center">
+        <h2>NGO and The Doers Postings</h2>
+        <h3>
+            NGOs and The Doers can post about their requirements / interests and get connected
+        </h3>
+        <div class="row">
+            <div class="col col-md-6 col-md-offset-3">
+                <div class="alert alert-info" style="font-size: 16px;">
+                    <span class="glyphicon glyphicon-info-sign">
+                        Use the filters to view get connected with the right people
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <!-- Filters -->
         <div class="col-md-3">
@@ -96,8 +112,11 @@
                     <img class="margin-bottom" style="height: 20px;"
                          src="http://goldwallpapers.com/uploads/posts/blank-blue-wallpaper/blank_blue_wallpaper_030.jpg"
                          alt=""/>
-                    <div class="col col-md-6">
+                    <div class="col col-md-12">
                         <p><b>Name :</b> {{ $post->user->name }}</p>
+                    </div>
+                    <div class="col col-md-6">
+                        <p><b>Phone number :</b> {{ $post->user->phone }}</p>
                     </div>
                     <div class="col col-md-6">
                         <p><b>Email :</b> {{ $post->user->email }}</p>
